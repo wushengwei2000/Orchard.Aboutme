@@ -10,6 +10,7 @@ This is an Orchard CMS Module which implemented a simple widget allowing user to
 
 ##Disclaimer 
 * Use at your own risk ;) 
+* This is NOT an official module from About.Me.
 
 ##License
 * No license whatsoever, please help to improve it, I know my code sucks
