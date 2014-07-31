@@ -1,0 +1,10 @@
+﻿Name: Orchard.Aboutme
+AntiForgery: enabled
+Author: Wu Shengwei
+Website: http://www.wushengwei.com
+Version: 1.0
+OrchardVersion: 1.0
+Description: Widget integrated with About.Me 
+Features:
+    Orchard.Aboutme:
+        Description: About.Me is a online profile editing website where you can store your personal information and show it in your blog 

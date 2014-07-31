@@ -1,0 +1,147 @@
+﻿@using Newtonsoft.Json.Linq
+@using NHibernate.Linq
+
+@{
+    Script.Require("jQuery");
+
+    bool showHeader = (bool)ViewData["showHeader"];
+    bool showApps = (bool)ViewData["showApps"];
+    bool showLinks = (bool)ViewData["showLinks"];
+    
+    //TODO: The following are not used yet
+    bool showLocation = (bool)ViewData["showLocation"];
+    bool showEducation = (bool)ViewData["showEducation"];
+    bool showWork = (bool)ViewData["showWork"];
+    bool showTags = (bool)ViewData["showTags"];
+}
+
+@if (Model != null)
+{
+    <style type="text/css">
+        #am_thumbnail a {
+            text-decoration: none;
+            border: none;
+        }
+        #am_thumbnail img {
+            text-decoration: none;
+            border: 1px solid #999;
+            max-width: 99%;
+        }
+        #am_name {
+            margin-top: 5px;
+            margin-bottom: 3px;
+        }
+        #am_headline {
+            margin-bottom: 5px;
+            /*
+            color:@Model["display_details"]["heading_color"];
+            font-family: @Model["display_details"]["font_heading"];
+            font-size: @Model["display_details"]["font_heading_size"];
+            */
+        }
+        #am_bio {
+            margin-bottom: 15px;
+            /*
+            color: @Model["display_details"]["bio_color"];
+            font-family: @Model["display_details"]["font_bio"];
+            font-size: @Model["display_details"]["font_bio_size"];
+            */
+        }
+        #am_bio p {
+            margin-bottom: 5px;
+        }
+        #am_bio p:last-child {
+            margin-bottom: 0px;
+        }
+        #am_services {
+            margin-right: -5px;
+            margin-bottom: 5px;
+        }
+        #am_services a.am_service_icon {
+            margin-right: 4px;
+            text-decoration: none;
+            border: none;
+            float: left;
+        }
+        #am_services a.am_service_icon:hover {
+            text-decoration: none;
+            border: none;
+        }
+        #am_services a.am_service_icon img {
+            border: none;
+            margin-bottom: 4px;
+            height: 32px;
+        }
+        #am_links {
+            margin-bottom: 5px;
+        }
+        #am_links .am_link_icon {
+            float: left;
+            margin-right: 4px;
+            vertical-align: central;
+        }
+    </style>
+    
+    <div class="aboutmeapp">
+        <div id="am_thumbnail">
+            <a href="@Model["profile"]" title="View User About Me Profile" target="_blank">
+                <img src="@Model["avatar"]" alt="@Model["first_name"]" />
+            </a>
+        </div>
+        @if (showHeader)
+        {
+            <h3 id="am_headline">@Model["header"]</h3>
+        }
+        <div id="am_bio">
+            @Html.Raw(@Model["bio"])
+        </div>
+        @if (showApps)
+        {
+            <div id="am_services">
+                @foreach (var website in Model["websites"]) 
+                {
+                    if (website["platform"] != "syndication_feed" && website["platform"] != "link")
+                    {
+                        var imgUrl = website["icon_url"] ?? (website["icon42_url"] ?? website["icon84_url"]);
+                        <a href="@website["site_url"]" target="_blank" class="am_service_icon" rel="me">
+                            @{
+                                if (imgUrl != null)
+                                {
+                                <img src="@imgUrl.ToString()" title="@website["display_name"]">
+                                }
+                                else
+                                {
+                                <span>@website["display_name"]</span>
+                                }
+                            }
+                        </a>
+                    }
+                }
+                <br style="clear:both"/>
+            </div>
+        }
+        
+        @if (showLinks)
+         {
+             <div id="am_links">
+                <ul>
+                    @foreach (var link in Model["websites"])
+                    {
+                        if (link["platform"] == "link")
+                        {
+                            <li>
+                                <a href='@link["site_url"]' target="_blank" rel="me" class="am_link_icon">
+                                    <img src='@link["icon_url"]'>
+                                </a> 
+                                <span>
+                                    <a href='@link["site_url"]' target="_blank" rel="me" class="am_link_icon">@link["display_name"]</a>
+                                </span>
+                                <br style="clear:both" />
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+         }
+    </div>
+}

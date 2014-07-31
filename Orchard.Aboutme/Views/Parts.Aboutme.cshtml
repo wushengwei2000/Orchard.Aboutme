@@ -1,0 +1,16 @@
+﻿@{
+    Script.Require("jQuery");
+    var header = Model.ContentPart.ShowHeader ? "y" : "n";
+    var apps = Model.ContentPart.ShowApps ? "y" : "n";
+    var links = Model.ContentPart.ShowLinks ? "y" : "n";
+}
+
+<div class="aboutme-content-wrapper">
+    
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".aboutme-content-wrapper").load("/AbouteMeAccess/UserInfo/@Model.ContentPart.AboutMeUserName?header=@header&app=@apps&link=@links");
+    })
+</script>

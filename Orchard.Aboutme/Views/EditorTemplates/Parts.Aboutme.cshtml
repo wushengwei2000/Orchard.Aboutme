@@ -1,0 +1,17 @@
+﻿@model Orchard.Aboutme.Models.AboutmePart
+           
+<fieldset>
+    <legend>@T("About.Me Configuration")</legend>
+    <div>
+        @T("Enter your about.me url: ")
+        <span>https://about.me/</span> @Html.TextBoxFor(m => m.AboutMeUserName) 
+        @Html.ValidationMessageFor(m=>m.AboutMeUserName)
+        <br/>
+        <span>Check what you want to display: </span>
+        @Html.CheckBoxFor(m => m.ShowHeader) @Html.DisplayNameFor(m => m.ShowHeader)
+        @Html.CheckBoxFor(m => m.ShowApps) @Html.DisplayNameFor(m => m.ShowApps)
+        @Html.CheckBoxFor(m => m.ShowLinks) @Html.DisplayNameFor(m => m.ShowLinks)
+        
+        <span class="hint">Input your About.Me url (format is https://about.me/youraccount). Register one at <a href="https://about.me">About.Me website</a></span>
+    </div>
+</fieldset>
